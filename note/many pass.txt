@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>صفحة الفيديوهات مع كلمات مرور</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+        .video-container {
+            position: relative;
+            display: inline-block;
+            display: none; /* إخفاء الفيديو حتى يتم إدخال كلمة المرور */
+        }
+        video {
+            width: 100%;
+            max-width: 600px;
+            height: auto;
+        }
+        .caption {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            color: white;
+            font-size: 24px;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 10px;
+            display: none;
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+        .password-container {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>مرحباً في صفحة الفيديوهات</h1>
+    
+    <div id="passwordPrompt" class="password-container">
+        <label for="password">أدخل كلمة المرور:</label>
+        <input type="password" id="password" placeholder="أدخل كلمة المرور هنا">
+        <button onclick="checkPassword()">دخول</button>
+    </div>
+
+    <div class="video-container" id="videoContainer">
+        <video id="video1" controls>
+            <source src="video.mp4" type="video/mp4">
+            متصفحك لا يدعم الفيديو.
+        </video>
+        <div class="caption" id="caption1">مرحباً، هذه نص توضيحي للفيديو الأول!</div>
+    </div>
+
+    <script>
+        // قائمة بكلمات المرور المسموحة
+        const passwords = ['1234', 'password123', 'secretpass'];
+
+        const videoContainer = document.getElementById('videoContainer');
+        const passwordPrompt = document.getElementById('passwordPrompt');
+        const video = document.getElementById('video1');
+        const caption = document.getElementById('caption1');
+
+        function checkPassword() {
+            const enteredPassword = document.getElementById('password').value;
+
+            if (passwords.includes(enteredPassword)) {
+                passwordPrompt.style.display = 'none';  // إخفاء مربع الإدخال
+                videoContainer.style.display = 'block';  // عرض الفيديو
+                video.play();  // تشغيل الفيديو مباشرة
+
+                // إظهار النص بعد ثانية من تشغيل الفيديو
+                setTimeout(function () {
+                    caption.style.display = 'block';
+                    caption.style.opacity = 1;
+                }, 1000);
+
+                video.addEventListener('timeupdate', function () {
+                    if (video.currentTime > 5) {
+                        caption.style.opacity = 0;
+                    }
+                });
+            } else {
+                alert('كلمة المرور غير صحيحة. حاول مرة أخرى.');
+            }
+        }
+    </script>
+
+</body>
+</html>

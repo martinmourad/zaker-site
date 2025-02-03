@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>   ZAKER SITE</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f4f4f4;
+            padding-top: 20px;
+        }
+        .container {
+            display: none; /* إخفاء المحتوى الأساسي حتى يتم التحقق من كلمة المرور */
+        }
+        .alert {
+            display: none; /* إخفاء التنبيهات في البداية */
+        }
+        video:hover {
+            transform: scale(1.05); /* تكبير الفيديو عند المرور عليه */
+            transition: transform 0.3s ease-in-out; /* تأثير سلاسة */
+        }
+    </style>
+</head>
+<body>
+
+<!-- تنبيه عند الفشل في إدخال كلمة المرور -->
+<div class="alert alert-danger text-center" role="alert" id="alertIncorrectPassword">
+الكود غير صحيح حاول مره اخري.
+</div>
+
+<!-- محتوى الصفحة (مخفي حتى يتم التحقق من كلمة المرور) -->
+<div class="container" id="contentContainer">
+    <h1 class="text-center">الحصه</h1><br>
+    <!-- هنا يمكن إضافة محتوى الفيديوهات كما تم شرحه سابقاً -->
+    <div class="row">
+        <div class="col-md-8">
+            <iframe width="400" height="300" src="https://www.youtube.com/embed/XBHk2xPq9_4" title="درس تطور الخريطه السياسية (الدرس الثالث فى الوحدة الثانية )" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+        <div class="col-md-4">
+            <div class="list-group">
+                <div class="list-group-item">الحصه 1</div>
+                <div class="list-group-item">الواجب 2</div>
+                <!-- <div class="list-group-item">فيديو 3</div> -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // قائمة كلمات الكود الصحيحة
+    const correctPasswords = ["123456", "password123", "admin2025","martin","BIGSALE15",
+            "DEALHUNTER30",
+            "XTRASAVE50",
+            "LUCKYDAY10",
+            "NEWDEAL5",
+            "SAVEMORE20",
+            "GREATOFFER50",
+            "OFFERS2025",
+            "SAVEUPTO30",
+            "EXCLUSIVE20",
+            "SHOPANDSAVE25",
+            "EXTRA30OFF",
+            "ENDOFSEASON15",
+            "HOLIDAYDEAL5",
+            "SPRINGOFFER25",
+            "EARLYBIRD15",
+            "SUMMERFLASH10",
+            "FREESHIP10",
+            "EXCLUSIVEOFFER50",
+            "SPECIALOFFER25",
+            "SAVENOW2025",
+            "HAPPYSHOPPING10",
+            "OFFERFLASH25",
+            "BUY2GET1FREE",
+            "EXTRA15OFF",
+            "WINTER25DEAL",
+            "SALE10OFF",
+            "BIGBARGAIN30",
+            "EXTRA20PERCENT",
+            "EARLYDEAL20",
+            "LIMITEDTIME5",
+            "NEWBIE2025",
+            "VIPDEAL15",
+            "BESTBUY10",
+            "HUGEDEAL50",
+            "SHOPNOW25",
+            "FLASH10SALE",
+            "HOTBARGAIN5",
+            "SUMMER2025DEAL",
+            "EXTRA5PERCENTOFF",]; // أضف كلمات مرور إضافية هنا
+
+    // نافذة تطلب من المستخدم إدخال كلمة المرور
+    let userPassword = prompt("ادخل الكود:");
+
+    // التحقق من كلمة المرور
+    if (correctPasswords.includes(userPassword)) {
+        // إذا كانت الكلمة الصحيحة، عرض المحتوى
+        document.getElementById("contentContainer").style.display = "block";
+    } else {
+        // إذا كانت الكلمة خاطئة، عرض تنبيه وإغلاق الصفحة بعد قليل
+        document.getElementById("alertIncorrectPassword").style.display = "block";
+        setTimeout(function() {
+            window.location.href = "about:blank"; // إغلاق الصفحة
+        }, 3000); // إغلاق الصفحة بعد 3 ثوانٍ
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ar">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> ZAKER SITE</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f4f4f4;
+            padding-top: 20px;
+        }
+
+        .container {
+            display: none;
+            /* إخفاء المحتوى الأساسي حتى يتم التحقق من كلمة المرور */
+        }
+
+        .alert {
+            display: none;
+            /* إخفاء التنبيهات في البداية */
+        }
+
+        video:hover {
+            transform: scale(1.05);
+            /* تكبير الفيديو عند المرور عليه */
+            transition: transform 0.3s ease-in-out;
+            /* تأثير سلاسة */
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- تنبيه عند الفشل في إدخال كلمة المرور -->
+    <div class="alert alert-danger text-center" role="alert" id="alertIncorrectPassword">
+        الكود غير صحيح حاول مره اخري.
+    </div>
+
+    <!-- محتوى الصفحة (مخفي حتى يتم التحقق من كلمة المرور) -->
+    <div class="container" id="contentContainer">
+        <h1 class="text-center">الحصه</h1><br>
+        <!-- هنا يمكن إضافة محتوى الفيديوهات كما تم شرحه سابقاً -->
+        <div class="row">
+            <div class="col-md-8">
+                <iframe width="400" height="300" src="https://www.youtube.com/embed/SU5l_D1cBgU"
+                    title="شرح و حل Unit 1 مادة statistics بالتفصيل  | ادبي تالتة ثانوي دفعة 2025" frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+            <div class="col-md-4">
+                <div class="list-group">
+                    <div class="list-group-item">الحصه 1</div>
+                    <div class="list-group-item">الواجب 2</div>
+                    <!-- <div class="list-group-item">فيديو 3</div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // قائمة كلمات الكود الصحيحة
+        const correctPasswords = ["123456", "password123", "admin2025", "martin", "DISCOUNT10",
+            "SAVE50NOW",
+            "BIGOFFER25",
+            "WELCOME2025",
+            "BLACKFRIDAY20",
+            "EXTRA15DISCOUNT",
+            "SUMMERDEAL10",
+            "SPRINGSALE30",
+            "NEWYEAR40",
+            "FLASH25SALE",
+            "WINTER10OFF",
+            "VIPOFFER50",
+            "GREATDEAL15",
+            "FREESHIP30",
+            "HOLIDAY25",
+            "SPECIALDEAL5",
+            "BUY1GET1FREE",
+            "OFFER2025",
+            "SUPERDEAL50",
+            "EXTRA5PERCENT",
+            "SUMMER2025",
+            "DEAL2025NOW",
+            "XTRADEAL30",
+            "SUPER20OFFER",
+            "SAVEBIG20",
+            "EXTRA10SAVE",
+            "DISCOUNT75",
+            "WELCOME50OFF",
+            "LASTMINUTE10",
+            "FLASHSALE50",
+            "HOTDEAL10",
+            "SUPERDEAL5",]; // أضف كلمات مرور إضافية هنا
+
+        // نافذة تطلب من المستخدم إدخال كلمة المرور
+        let userPassword = prompt("ادخل الكود:");
+
+        // التحقق من كلمة المرور
+        if (correctPasswords.includes(userPassword)) {
+            // إذا كانت الكلمة الصحيحة، عرض المحتوى
+            document.getElementById("contentContainer").style.display = "block";
+        } else {
+            // إذا كانت الكلمة خاطئة، عرض تنبيه وإغلاق الصفحة بعد قليل
+            document.getElementById("alertIncorrectPassword").style.display = "block";
+            setTimeout(function () {
+                window.location.href = "about:blank"; // إغلاق الصفحة
+            }, 3000); // إغلاق الصفحة بعد 3 ثوانٍ
+        }
+    </script>
+
+</body>
+
+</html>

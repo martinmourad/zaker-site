@@ -1,0 +1,84 @@
+  <!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>بوابة المعلمين</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- شريط التنقل -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">بوابة المعلمين</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="#">الرئيسية</a>
+        </li>
+        <li class="nav-item">
+          <!-- <a class="nav-link" href="#">اكواد</a> -->
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">دورة المعلم</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">اتصل بنا</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- قسم الترحيب -->
+  <div class="container text-center my-5">
+    <h1>أهلاً وسهلاً بالمعلمين!</h1>
+    <p>الموارد والأدوات لتعزيز تجربة التدريس الخاصة بك.</p>
+  </div>
+
+  <!-- قسم المميزات -->
+  <div class="container my-5">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="feature-box">
+          <h3>تاريخ الطلاب</h3>
+          <img src="toba.PNG" width="100px"> <br>
+          <a href="tolba history.html">اذهب إلى الدورة</a>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="feature-box">
+          <h3>جغرافيا الزوز</h3>
+          <img src="zoz.jpg" width="100px"><br>
+          <a href="tolba history.html">اذهب إلى الدورة</a>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="feature-box">
+          <h3>محمود الحيوانات</h3>
+          <img src="3.jpg" width="100px"><br>
+          <a href="tolba history.html">اذهب إلى الدورة</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- التذييل -->
+  <footer class="text-center bg-dark text-white py-4">
+    <p>&copy; 2025 بوابة المعلمين. جميع الحقوق محفوظة.</p>
+  </footer>
+
+  <!-- Bootstrap JS, Popper.js, و jQuery -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <!-- Custom JS -->
+  <script src="script.js"></script>
+</body>
+</html>

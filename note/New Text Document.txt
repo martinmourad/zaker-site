@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>عرض الفيديوهات مع قائمة تشغيل</title>
+    <!-- ربط Bootstrap -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f4f4f4;
+            padding-top: 20px;
+        }
+        .video-container {
+            margin-bottom: 30px;
+        }
+        video {
+            width: 100%;
+            height: auto;
+        }
+        .video-item {
+            cursor: pointer;
+            padding: 10px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+        .video-item:hover {
+            background-color: #f0f0f0;
+        }
+        .active {
+            background-color: #007bff;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1 class="text-center">مكتبة الفيديوهات</h1>
+
+    <div class="row">
+        <div class="col-md-8">
+            <!-- مكان عرض الفيديو -->
+            <video id="videoPlayer" controls>
+                <source src="path_to_your_video1.mp4" type="video/mp4">
+                متصفحك لا يدعم تشغيل الفيديو.
+            </video>
+        </div>
+        <div class="col-md-4">
+            <!-- قائمة تشغيل الفيديوهات -->
+            <div class="list-group">
+                <div class="list-group-item video-item active" onclick="changeVideo('path_to_your_video1.mp4', this)">
+                    فيديو 1
+                </div>
+                <div class="list-group-item video-item" onclick="changeVideo('path_to_your_video2.mp4', this)">
+                    فيديو 2
+                </div>
+                <div class="list-group-item video-item" onclick="changeVideo('path_to_your_video3.mp4', this)">
+                    فيديو 3
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ربط JavaScript و Bootstrap -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    // تغيير الفيديو عند الضغط على عنصر من قائمة التشغيل
+    function changeVideo(videoPath, element) {
+        var videoPlayer = document.getElementById('videoPlayer');
+        videoPlayer.src = videoPath;
+        videoPlayer.play();
+
+        // إضافة / إزالة الكلاس active لتمييز الفيديو المختار
+        var items = document.querySelectorAll('.video-item');
+        items.forEach(function(item) {
+            item.classList.remove('active');
+        });
+        element.classList.add('active');
+    }
+</script>
+</body>
+</html>
