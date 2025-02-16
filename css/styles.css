@@ -41,4 +41,35 @@ body {
     background-color: #444;
     border-radius: 10px;
   }
-  
+  /* إضافة تأثير الكتابة */
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+/* تطبيق الحركة على h1 */
+h1 {
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  border-right: 3px solid black; /* لإضافة مؤشر الكتابة */
+  width: 0;
+  animation: typing 4s steps(30) infinite, blink 0.75s step-end infinite;
+}
+
+/* إضافة تأثير الوميض للمؤشر */
+@keyframes blink {
+  0%,
+  50%,
+  100% {
+    border-color: transparent;
+  }
+  25%,
+  75% {
+    border-color: black;
+  }
+}
