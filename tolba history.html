@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZAKER SITE</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f4f4f4;
+            padding-top: 20px;
+        }
+        .container {
+            display: none;
+        }
+        .alert {
+            display: none;
+        }
+        .password-container {
+            text-align: center;
+            margin-top: 50px;
+        }
+        .password-box {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        .toggle-password {
+            cursor: pointer;
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        .input-group {
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+
+<div class="password-container">
+    <div class="password-box">
+        <h4>ادخل الكود</h4>
+        <div class="input-group">
+            <input type="password" id="passwordInput" class="form-control" placeholder="ادخل الكود هنا">
+            <span class="toggle-password" onclick="togglePassword()">👁️</span>
+        </div>
+        <button class="btn btn-primary mt-3" onclick="checkPassword()">دخول</button>
+        <div class="alert alert-danger mt-3" id="alertIncorrectPassword">الكود غير صحيح، سيتم إغلاق الصفحة.</div>
+    </div>
+</div>
+
+<div class="container" id="contentContainer">
+    <h1 class="text-center">الحصة</h1>
+    <div class="row">
+        <div class="col-md-8">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/fTSuBIWRilI" frameborder="0" allowfullscreen></iframe>
+        </div>
+        <div class="col-md-4">
+            <div class="list-group">
+                <div class="list-group-item">الحصة 1</div>
+                <div class="list-group-item">الواجب 2</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+      let correctPasswords = JSON.parse(localStorage.getItem("validPasswords")) || ["123456", "password123", "admin2025", "martin", "zakerplus", "VIP30OFFER"];
+    let savedPassword = localStorage.getItem("savedPassword");
+    let expiryTime = localStorage.getItem("passwordExpiry");
+
+    // التحقق مما إذا كانت كلمة المرور محفوظة ولم تنتهِ صلاحيتها
+    if (savedPassword && expiryTime && new Date().getTime() < expiryTime) {
+        document.querySelector(".password-container").style.display = "none";
+        document.getElementById("contentContainer").style.display = "block";
+    }
+
+    function checkPassword() {
+        let userPassword = document.getElementById("passwordInput").value;
+        let passwordIndex = correctPasswords.indexOf(userPassword);
+        
+        if (passwordIndex !== -1) {
+            correctPasswords.splice(passwordIndex, 1); // إزالة كلمة المرور من القائمة
+            localStorage.setItem("validPasswords", JSON.stringify(correctPasswords)); // حفظ القائمة الجديدة
+
+            let expiryDate = new Date().getTime() + (6 * 24 * 60 * 60 * 1000); // 6 أيام
+            localStorage.setItem("savedPassword", userPassword);
+            localStorage.setItem("passwordExpiry", expiryDate);
+            
+            document.querySelector(".password-container").style.display = "none";
+            document.getElementById("contentContainer").style.display = "block";
+        } else {
+            document.getElementById("alertIncorrectPassword").style.display = "block";
+            setTimeout(function() {
+                window.location.href = "about:blank"; // إغلاق الصفحة
+            }, 2000);
+        }
+    }
+
+    function togglePassword() {
+        let passwordField = document.getElementById("passwordInput");
+        passwordField.type = passwordField.type === "password" ? "text" : "password";
+    }
+
+</script>
+
+</body>
+</html>
