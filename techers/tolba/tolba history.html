@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>   ZAKER SITE</title>
+    <title>ZAKER SITE</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
@@ -11,105 +11,102 @@
             padding-top: 20px;
         }
         .container {
-            display: none; /* إخفاء المحتوى الأساسي حتى يتم التحقق من كلمة المرور */
+            display: none;
         }
         .alert {
-            display: none; /* إخفاء التنبيهات في البداية */
+            display: none;
         }
-        video:hover {
-            transform: scale(1.05); /* تكبير الفيديو عند المرور عليه */
-            transition: transform 0.3s ease-in-out; /* تأثير سلاسة */
+        .password-container {
+            text-align: center;
+            margin-top: 50px;
+        }
+        .password-box {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        .toggle-password {
+            cursor: pointer;
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        .input-group {
+            position: relative;
         }
     </style>
 </head>
 <body>
 
-<!-- تنبيه عند الفشل في إدخال كلمة المرور -->
-<div class="alert alert-danger text-center" role="alert" id="alertIncorrectPassword">
-الكود غير صحيح حاول مره اخري.
+<div class="password-container">
+    <div class="password-box">
+        <h4>ادخل الكود</h4>
+        <div class="input-group">
+            <input type="password" id="passwordInput" class="form-control" placeholder="ادخل الكود هنا">
+            <span class="toggle-password" onclick="togglePassword()">👁️</span>
+        </div>
+        <button class="btn btn-primary mt-3" onclick="checkPassword()">دخول</button>
+        <div class="alert alert-danger mt-3" id="alertIncorrectPassword">الكود غير صحيح، سيتم إغلاق الصفحة.</div>
+    </div>
 </div>
 
-<!-- محتوى الصفحة (مخفي حتى يتم التحقق من كلمة المرور) -->
 <div class="container" id="contentContainer">
-    <h1 class="text-center">الحصه</h1><br>
-    <!-- هنا يمكن إضافة محتوى الفيديوهات كما تم شرحه سابقاً -->
+    <h1 class="text-center">الحصة</h1>
     <div class="row">
         <div class="col-md-8">
-            <iframe width="560" height="315" src="https://www.youtube.com/embed/fTSuBIWRilI?si=lZkgoZhBvrgD_3sl" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/fTSuBIWRilI" frameborder="0" allowfullscreen></iframe>
         </div>
         <div class="col-md-4">
             <div class="list-group">
-                <div class="list-group-item">الحصه 1</div>
+                <div class="list-group-item">الحصة 1</div>
                 <div class="list-group-item">الواجب 2</div>
-                <!-- <div class="list-group-item">فيديو 3</div> -->
             </div>
         </div>
     </div>
 </div>
 
 <script>
-    // قائمة كلمات الكود الصحيحة
-    const correctPasswords = ["123456", "password123", "admin2025","martin","zakerplus","VIP30OFFER",
-            "NEWOFFER15",
-            "BARGAINS10",
-            "BIGDEAL20",
-            "EXTRA30PERCENT",
-            "SAVEON2025",
-            "LIMITEDOFFER50",
-            "FREEDELIVERY10",
-            "WINTERSALE10",
-            "GREATBUY15",
-            "SAVEBIG30",
-            "NEWYEAR15OFF",
-            "BUYMORE20",
-            "EXTRA10SALE",
-            "SAVE25ON",
-            "SPRINGDISCOUNT50",
-            "SUMMERBARGAIN25",
-            "OFFEREXTRA30",
-            "DISCOUNT15PERCENT",
-            "SHOPANDSAVE50",
-            "SEASONALDEAL10",
-            "EXCLUSIVE20OFF",
-            "FLASHDEAL25",
-            "GET10OFF",
-            "WELCOME25DISCOUNT",
-            "SUMMERDEAL15",
-            "SPRINGSALE50",
-            "HOTOFFER30",
-            "ENDOFYEAR10",
-            "SUPERDEAL25",
-            "SHOPDISCOUNT20",
-            "EXTRA5DEAL",
-            "HOTBUY15",
-            "WELCOMEDEAL5",
-            "OFFERNOW30",
-            "LIMITEDOFFER15",
-            "BIGSALE50",
-            "HOTBARGAIN10",
-            "GREATOFFER30",
-            "NEWCUSTOMER25",
-            "EXTRA20DEAL",
-            "FREESHIP25",
-            "SAVE50PERCENT",
-            "EXCLUSIVE30",
-            "DEALSOFFER15",
-            "SPECIALOFFER50"]; // أضف كلمات مرور إضافية هنا
+      let correctPasswords = JSON.parse(localStorage.getItem("validPasswords")) || ["123456", "password123", "admin2025", "martin", "zakerplus", "VIP30OFFER"];
+    let savedPassword = localStorage.getItem("savedPassword");
+    let expiryTime = localStorage.getItem("passwordExpiry");
 
-    // نافذة تطلب من المستخدم إدخال كلمة المرور
-    let userPassword = prompt("ادخل الكود:");
-
-    // التحقق من كلمة المرور
-    if (correctPasswords.includes(userPassword)) {
-        // إذا كانت الكلمة الصحيحة، عرض المحتوى
+    // التحقق مما إذا كانت كلمة المرور محفوظة ولم تنتهِ صلاحيتها
+    if (savedPassword && expiryTime && new Date().getTime() < expiryTime) {
+        document.querySelector(".password-container").style.display = "none";
         document.getElementById("contentContainer").style.display = "block";
-    } else {
-        // إذا كانت الكلمة خاطئة، عرض تنبيه وإغلاق الصفحة بعد قليل
-        document.getElementById("alertIncorrectPassword").style.display = "block";
-        setTimeout(function() {
-            window.location.href = "about:blank"; // إغلاق الصفحة
-        }, 3000); // إغلاق الصفحة بعد 3 ثوانٍ
     }
+
+    function checkPassword() {
+        let userPassword = document.getElementById("passwordInput").value;
+        let passwordIndex = correctPasswords.indexOf(userPassword);
+        
+        if (passwordIndex !== -1) {
+            correctPasswords.splice(passwordIndex, 1); // إزالة كلمة المرور من القائمة
+            localStorage.setItem("validPasswords", JSON.stringify(correctPasswords)); // حفظ القائمة الجديدة
+
+            let expiryDate = new Date().getTime() + (6 * 24 * 60 * 60 * 1000); // 6 أيام
+            localStorage.setItem("savedPassword", userPassword);
+            localStorage.setItem("passwordExpiry", expiryDate);
+            
+            document.querySelector(".password-container").style.display = "none";
+            document.getElementById("contentContainer").style.display = "block";
+        } else {
+            document.getElementById("alertIncorrectPassword").style.display = "block";
+            setTimeout(function() {
+                window.location.href = "about:blank"; // إغلاق الصفحة
+            }, 2000);
+        }
+    }
+
+    function togglePassword() {
+        let passwordField = document.getElementById("passwordInput");
+        passwordField.type = passwordField.type === "password" ? "text" : "password";
+    }
+
 </script>
 
 </body>
