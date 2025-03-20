@@ -7,7 +7,8 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
-            background-color: #f4f4f4;
+            background-color: #121212;
+            color: #ffffff;
             padding-top: 20px;
         }
         .container {
@@ -15,6 +16,9 @@
         }
         .alert {
             display: none;
+            background-color: #ff5555;
+            color: white;
+            border: none;
         }
         .password-container {
             text-align: center;
@@ -24,9 +28,9 @@
             max-width: 400px;
             margin: auto;
             padding: 20px;
-            background: white;
+            background: #1e1e1e;
             border-radius: 10px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.1);
         }
         .toggle-password {
             cursor: pointer;
@@ -34,9 +38,27 @@
             right: 10px;
             top: 50%;
             transform: translateY(-50%);
+            color: #ffffff;
         }
         .input-group {
             position: relative;
+        }
+        input.form-control {
+            background-color: #333;
+            color: white;
+            border: 1px solid #555;
+        }
+        button.btn-primary {
+            background-color: #6200ea;
+            border: none;
+        }
+        button.btn-primary:hover {
+            background-color: #3700b3;
+        }
+        .list-group-item {
+            background-color: #1e1e1e;
+            color: white;
+            border: 1px solid #333;
         }
     </style>
 </head>
@@ -56,9 +78,10 @@
 
 <div class="container" id="contentContainer">
     <h1 class="text-center">الحصة</h1>
+    <p id="passwordStatus"></p>
     <div class="row">
-        <div class="col-md-8">
-            <iframe width="560" height="315" src="https://www.youtube.com/embed/fTSuBIWRilI" frameborder="0" allowfullscreen></iframe>
+        <div class="col-md-8"> 
+            <iframe width="400" height="300" src="https://www.youtube.com/embed/SU5l_D1cBgU" title="شرح و حل Unit 1 مادة statistics بالتفصيل  | ادبي تالتة ثانوي دفعة 2025" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> 
         </div>
         <div class="col-md-4">
             <div class="list-group">
@@ -67,45 +90,76 @@
             </div>
         </div>
     </div>
+
 </div>
 
 <script>
-      let correctPasswords = JSON.parse(localStorage.getItem("validPasswords")) || ["123456", "password123", "admin2025", "martin", "zakerplus", "VIP30OFFER"];
-    let savedPassword = localStorage.getItem("savedPassword");
-    let expiryTime = localStorage.getItem("passwordExpiry");
+// قائمة كلمات المرور الصحيحة
+let correctPasswords = ["123456", "password123", "admin2025", "martin", "zakerplus", "VIP30OFFER"];
 
-    // التحقق مما إذا كانت كلمة المرور محفوظة ولم تنتهِ صلاحيتها
-    if (savedPassword && expiryTime && new Date().getTime() < expiryTime) {
+// إنشاء مفاتيح تخزين خاصة بهذه الصفحة فقط
+let pageKey = `savedPassword_${window.location.pathname}`;
+let expiryKey = `passwordExpiry_${window.location.pathname}`;
+
+let savedPassword = localStorage.getItem(pageKey);
+let expiryTime = localStorage.getItem(expiryKey);
+
+// التحقق من أن كلمة المرور المخزنة لهذه الصفحة لم تنتهي صلاحيتها
+if (savedPassword && expiryTime && new Date().getTime() < expiryTime) {
+    document.querySelector(".password-container").style.display = "none";
+    document.getElementById("contentContainer").style.display = "block";
+}
+
+function checkPassword() {
+    let userPassword = document.getElementById("passwordInput").value.trim(); // إزالة المسافات الزائدة
+
+    // التحقق مما إذا كانت كلمة المرور صحيحة
+    if (correctPasswords.includes(userPassword)) {
+        // ضبط انتهاء الصلاحية بعد 6 أيام
+        let expiryDate = new Date().getTime() + (6 * 24 * 60 * 60 * 1000);
+
+        // حفظ كلمة المرور لهذه الصفحة فقط
+        localStorage.setItem(pageKey, userPassword);
+        localStorage.setItem(expiryKey, expiryDate);
+        
+        // إظهار المحتوى وإخفاء إدخال كلمة المرور
         document.querySelector(".password-container").style.display = "none";
         document.getElementById("contentContainer").style.display = "block";
+    } else {
+        // إظهار رسالة الخطأ وإغلاق الصفحة بعد ثانيتين
+        document.getElementById("alertIncorrectPassword").style.display = "block";
+        setTimeout(function() {
+            window.location.href = "about:blank";
+        }, 2000);
     }
+}
 
-    function checkPassword() {
-        let userPassword = document.getElementById("passwordInput").value;
-        let passwordIndex = correctPasswords.indexOf(userPassword);
-        
-        if (passwordIndex !== -1) {
-            correctPasswords.splice(passwordIndex, 1); // إزالة كلمة المرور من القائمة
-            localStorage.setItem("validPasswords", JSON.stringify(correctPasswords)); // حفظ القائمة الجديدة
+// وظيفة إظهار/إخفاء كلمة المرور
+function togglePassword() {
+    let passwordField = document.getElementById("passwordInput");
+    passwordField.type = passwordField.type === "password" ? "text" : "password";
+}
+localStorage.setItem("passwordSetDate", new Date().toISOString());
+function getRemainingDays() {
+    const passwordSetDate = localStorage.getItem("passwordSetDate");
+    if (!passwordSetDate) return "تاريخ التعيين غير متوفر";
 
-            let expiryDate = new Date().getTime() + (6 * 24 * 60 * 60 * 1000); // 6 أيام
-            localStorage.setItem("savedPassword", userPassword);
-            localStorage.setItem("passwordExpiry", expiryDate);
-            
-            document.querySelector(".password-container").style.display = "none";
-            document.getElementById("contentContainer").style.display = "block";
-        } else {
-            document.getElementById("alertIncorrectPassword").style.display = "block";
-            setTimeout(function() {
-                window.location.href = "about:blank"; // إغلاق الصفحة
-            }, 2000);
-        }
-    }
+    const setDate = new Date(passwordSetDate);
+    const expiryDays = 6;
+    const expiryDate = new Date(setDate);
+    expiryDate.setDate(setDate.getDate() + expiryDays);
 
-    function togglePassword() {
-        let passwordField = document.getElementById("passwordInput");
-        passwordField.type = passwordField.type === "password" ? "text" : "password";
-    }
+    const today = new Date();
+    const diffTime = expiryDate - today;
+    const remainingDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+    return remainingDays > 0 ? `متبقي ${remainingDays} يومًا` : "كلمة المرور منتهية";
+}
+
+// عرض عدد الأيام المتبقية في صفحة HTML
+document.addEventListener("DOMContentLoaded", function() {
+    document.getElementById("passwordStatus").innerText = getRemainingDays();
+});
 
 </script>
 
