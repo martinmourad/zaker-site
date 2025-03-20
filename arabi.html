@@ -1,4 +1,4 @@
-  <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ar">
 <head>
   <meta charset="UTF-8">
@@ -8,13 +8,41 @@
   <!-- Bootstrap CSS -->
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 
-  <!-- Custom CSS -->
-  <link rel="stylesheet" href="css/styles.css">
+  <!-- Custom Dark Theme CSS -->
+  <style>
+    body {
+      background-color: #121212;
+      color: #ffffff;
+      direction: rtl;
+      text-align: right;
+    }
+    .feature-box {
+      background-color: #1e1e1e;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+    }
+    .feature-box a {
+      color: #bb86fc;
+      text-decoration: none;
+    }
+    .feature-box a:hover {
+      color: #ffffff;
+    }
+    .navbar {
+      background-color: #1e1e1e !important;
+    }
+    .footer {
+      background-color: #1e1e1e;
+      color: #ffffff;
+      padding: 10px 0;
+    }
+  </style>
 </head>
 <body>
   <!-- شريط التنقل -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="#"> ZAKER plus</a>
+    <a class="navbar-brand" href="#">ZAKER plus</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -27,7 +55,7 @@
           <a class="nav-link" href="techers exam.html">امتحان</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="code.html"> اكواد</a>
+          <a class="nav-link" href="code.html">اكواد</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="contact.html">اتصل بنا</a>
@@ -39,7 +67,7 @@
   <!-- قسم الترحيب -->
   <div class="container text-center my-5">
     <h1>مرحبا بك !</h1>
-    <p>اذا لم يكون معاك كود اتوصيل معانا.</p>
+    <p>اذا لم يكن معك كود، تواصل معنا.</p>
   </div>
 
   <!-- قسم المميزات -->
@@ -47,21 +75,21 @@
     <div class="row">
       <div class="col-md-4">
         <div class="feature-box">
-          <h3>  اسم المدرس</h3>
+          <h3>اسم المدرس</h3>
           <img src="image/test.jpg" width="100px"> <br>
           <a href="video techer.html">اذهب إلى المحاضرة</a>
         </div>
       </div>
       <div class="col-md-4">
         <div class="feature-box">
-          <h3> اسم المدرس</h3>
+          <h3>اسم المدرس</h3>
           <img src="image/5.jpg" width="100px"><br>
           <a href="video techer.html">اذهب إلى المحاضرة</a>
         </div>
       </div>
       <div class="col-md-4">
         <div class="feature-box">
-          <h3>اسم المدرس </h3>
+          <h3>اسم المدرس</h3>
           <img src="image/6.jpg" width="100px"><br>
           <a href="video techer.html">اذهب إلى المحاضرة</a>
         </div>
@@ -70,7 +98,7 @@
   </div>
 
   <!-- التذييل -->
-  <footer class="text-center bg-dark text-white py-4">
+  <footer class="text-center footer">
     <p>&copy; 2025 بوابة المعلمين. جميع الحقوق محفوظة.</p>
   </footer>
 
@@ -78,8 +106,5 @@
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-  <!-- Custom JS -->
-  <!-- <script src="script/script.js"></script> -->
 </body>
 </html>

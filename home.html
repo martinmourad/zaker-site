@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الصفحة الرئيسية</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; }
+        .container { margin-top: 50px; }
+        button {
+            padding: 10px 15px;
+            background: red;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>مرحبًا، <span id="userName"></span> 👋</h1>
+        <p>هذه هي الصفحة الرئيسية بعد تسجيل الدخول.</p>
+        <button onclick="logout()">تسجيل الخروج</button>
+    </div>
+
+    <script>
+        // تحقق من تسجيل الدخول
+        if (!localStorage.getItem("userToken")) {
+            window.location.href = "index.html"; // لو مش مسجل، يرجعه لصفحة التسجيل
+        }
+
+        // عرض اسم المستخدم المسجل
+        document.getElementById("userName").innerText = localStorage.getItem("username");
+
+        function logout() {
+            localStorage.removeItem("userToken");
+            localStorage.removeItem("username");
+            window.location.href = "index.html"; // تحويل المستخدم لصفحة التسجيل
+        }
+    </script>
+
+</body>
+</html>

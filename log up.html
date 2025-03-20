@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسجيل حساب</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+        }
+        .container {
+            width: 300px;
+            margin: 100px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="registerBox">
+        <h2>إنشاء حساب</h2>
+        <input type="text" id="username" placeholder="اسم المستخدم" required>
+        <input type="password" id="password" placeholder="كلمة المرور" required>
+        <button onclick="registerUser()">تسجيل</button>
+    </div>
+
+    <script>
+        // تحقق إذا كان المستخدم مسجل دخول
+        if (localStorage.getItem("userToken")) {
+            window.location.href = "home.html"; // لو مسجل، ينقله للصفحة الرئيسية
+        }
+
+        function registerUser() {
+            let username = document.getElementById("username").value;
+            let password = document.getElementById("password").value;
+
+            if (username && password) {
+                localStorage.setItem("userToken", "token123"); // تخزين بيانات مؤقتة
+                localStorage.setItem("username", username);
+                alert("تم التسجيل بنجاح!");
+                window.location.href = "home.html"; // تحويل المستخدم للصفحة الرئيسية
+            } else {
+                alert("يجب ملء جميع الحقول!");
+            }
+        }
+    </script>
+
+</body>
+</html>

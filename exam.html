@@ -7,58 +7,61 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: black;
+            background-color: #121212;
             margin: 0;
             padding: 20px;
+            color: #ffffff;
         }
         .question-card {
-            background-color: #fff;
+            background-color: #1e1e1e;
             border-radius: 10px;
             margin: 10px 0;
             padding: 15px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
         }
         .question-card h3 {
             margin: 0 0 10px 0;
+            color: #4CAF50;
         }
         .answers {
             display: flex;
             flex-direction: column;
         }
         .answer-option {
-            background-color: #f0f0f0;
+            background-color: #333;
             margin: 5px 0;
             padding: 10px;
             border-radius: 5px;
             cursor: pointer;
+            color: #ffffff;
         }
         .answer-option:hover {
-            background-color: #e0e0e0;
+            background-color: #444;
         }
         .answer-option.selected {
-            background-color: #b0e0a2;
+            background-color: #4CAF50;
         }
         #submit-btn {
             padding: 10px 20px;
-            background-color: #28a745;
+            background-color: #4CAF50;
             color: white;
             border: none;
             border-radius: 5px;
             cursor: pointer;
         }
         #submit-btn:disabled {
-            background-color: #ccc;
+            background-color: #666;
             cursor: not-allowed;
         }
         #result {
             margin-top: 20px;
-            background-color: #fff;
+            background-color: #1e1e1e;
             padding: 15px;
             border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
         }
-        .name{
-            color: white;
+        .name {
+            color: #4CAF50;
         }
     </style>
 </head>
@@ -85,8 +88,6 @@
                 <div class="answer-option" data-correct="false">المريخ</div>
             </div>
         </div>
-
-        <!-- أضف المزيد من الأسئلة بنفس الطريقة -->
         
         <button type="button" id="submit-btn" onclick="submitQuiz()">تسليم الامتحان</button>
     </form>
@@ -98,17 +99,15 @@
     </div>
 
     <script>
-        let totalQuestions = 2; // عدل هذا الرقم لعدد الأسئلة
+        let totalQuestions = 2;
         let score = 0;
 
-        // إضافة حدث عند اختيار الإجابة
         document.querySelectorAll('.answer-option').forEach(option => {
             option.addEventListener('click', function() {
                 this.classList.toggle('selected');
             });
         });
 
-        // دالة حساب النتيجة
         function submitQuiz() {
             let selectedAnswers = document.querySelectorAll('.answer-option.selected');
             score = 0;
@@ -119,12 +118,10 @@
                 }
             });
 
-            // إظهار النتيجة
             document.getElementById('result').style.display = 'block';
             document.getElementById('score').innerText = `النتيجة: ${score} من ${totalQuestions}`;
             document.getElementById('date').innerText = `تاريخ التسليم: ${new Date().toLocaleString()}`;
 
-            // تعطيل الأزرار بعد التسليم
             document.querySelectorAll('.answer-option').forEach(option => {
                 option.style.pointerEvents = 'none';
             });
